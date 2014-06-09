@@ -1,6 +1,6 @@
 {
   "name": "grunt-include",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Grunt task for template injection",
   "homepage": "https://github.com/hung-phan/grunt-include",
   "repository": "git://github.com/hung-phan/grunt-include.git",
@@ -9,10 +9,10 @@
     "email": "colorvisavn@gmail.com",
     "url": ""
   },
+  "main": "main.js",
   "keywords": [
     "gruntplugin"
   ],
-  "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -27,5 +27,9 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "chalk": "~0.4.0",
+    "through2": "~0.5.1"
   }
 }
