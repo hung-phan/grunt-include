@@ -27,12 +27,6 @@ module.exports = function (grunt) {
       showFiles: undefined
     });
 
-    var end = function(filepath) {
-        return function() {
-            console.log(chalk.green(filepath) + ' is done.');
-        };
-    };
-
     // Iterate over all specified file groups.
 
     this.files.forEach(function (file) {
@@ -52,7 +46,7 @@ module.exports = function (grunt) {
         return true;
       }).forEach(function (filepath) {
         var dest = file.dest.substring(0, file.dest.lastIndexOf('/'));
-        adapter(filepath, options, dest, end);
+        adapter(filepath, options, dest);
       });
     });
   });
