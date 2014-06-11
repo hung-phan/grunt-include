@@ -26,9 +26,10 @@ module.exports = function (grunt) {
       cache: false,
       showFiles: undefined
     });
-    var end = function(file) {
+
+    var end = function(filepath) {
         return function() {
-            return console.log(chalk.green(file) + ' is built.');
+            console.log(chalk.green(filepath) + ' is done.');
         };
     };
 
