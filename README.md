@@ -1,4 +1,4 @@
-# grunt-include
+# grunt-include [![Build Status](https://secure.travis-ci.org/hung-phan/grunt-include.png?branch=master)](https://travis-ci.org/hung-phan/grunt-include)
 
 > Grunt task for template injection
 
@@ -18,75 +18,103 @@ grunt.loadNpmTasks('grunt-include');
 ```
 
 ## The "include" task
+This task is inspired by [gulp/include](https://github.com/ng-vu/gulp-include-js). Its main purpose is to
+injecting template into another.
 
-### Overview
+### Structure
+```
+application/
+  |- src/
+  |  |- number/
+  |  |  |- _another-code.js
+  |  |- subfolder/
+  |  |  |- _app.js
+  |  |  |- sub.js
+  |  |- _code.js
+  |  |- test.js
+  |- Gruntfile.js
+  |- package.json
+```
+
+### Usage
 In your project's Gruntfile, add a section named `include` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
   include: {
-    options: {
-      // Task-specific options go here.
-    },
+    // Target-specific file lists and/or options go here.
     your_target: {
-      // Target-specific file lists and/or options go here.
+      options: {
+        ext:'js', // extension file to be read from
+        cache:true, // cache for template file
+        showFiles:'Building' // message to be displayed when building file
+      },
+      files: [{
+        expand: true,
+        cwd: 'test/fixtures/js',
+        src  : ['**/*.js'],
+        dest : 'test/tmp/js',
+      }]
     },
   },
 })
 ```
+
+#### test.js
+```js
+function plus() {
+  return INCLUDE('code');
+}
+
+module.exports = plus;
+```
+
+#### Template
+`_code.js`
+```js
+function(a) { return a + INCLUDE('number/another-code'); }
+```
+
+`number/_another-code.js`
+```js
+10
+```
+
+#### Result
+function plus() {
+  return function(a) { return a + 10; };
+}
+
+module.exports = plus;
 
 ### Options
 
-#### options.separator
+#### options.keyword
 Type: `String`
-Default value: `',  '`
+Default value: `'keyword'`
 
-A string value that is used to do something with whatever.
+Keyword to be replaced in main template.
 
-#### options.punctuation
+#### options.ext
 Type: `String`
-Default value: `'.'`
+Default value: `'js'`
 
-A string value that is used to do something else with whatever else.
+Extension of file to be read from.
 
-### Usage Examples
+#### options.cache
+Type: `Boolean`
+Default value: `false`
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+Cache module for remembering template path.
 
-```js
-grunt.initConfig({
-  include: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
+#### options.showFiles
+Type: `String`
+Default value: `undefined`
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  include: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
+File name to be display.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
 
 ## License
 Copyright (c) 2014 Hung Quang Phan. Licensed under the MIT license.
