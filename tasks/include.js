@@ -46,7 +46,8 @@ module.exports = function (grunt) {
         }
         return true;
       }).forEach(function (filepath) {
-        adapter(filepath, options, file.orig.dest, async);
+        var dest = file.dest.substring(0, file.dest.lastIndexOf('/'));
+        adapter(filepath, options, dest, async);
       });
     });
   });
