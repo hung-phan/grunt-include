@@ -33,21 +33,31 @@ module.exports = function (grunt) {
 
     // Configuration to be run (and then tested).
     include: {
-      default_options: {
+      js: {
         options: {
+          ext:'js',
+          cache:true,
+          showFiles:'Building'
         },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/js',
+          src  : ['**/*.js'],
+          dest : 'test/tmp/js',
+        }]
       },
-      custom_options: {
+      html: {
         options: {
-          separator: ': ',
-          punctuation: ' !!!'
+          ext:'html',
+          cache:true,
+          showFiles:'Building'
         },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/html',
+          src  : ['**/*.html'],
+          dest : 'test/tmp/html',
+        }]
       }
     },
 
