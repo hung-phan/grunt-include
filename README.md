@@ -18,8 +18,8 @@ grunt.loadNpmTasks('grunt-include');
 ```
 
 ## The "include" task
-This task is inspired by [gulp/include](https://github.com/ng-vu/gulp-include-js). Its main purpose is to
-injecting template into another.
+This plugin is inspired by [gulp/include](https://github.com/ng-vu/gulp-include-js).
+The task allows you to preprocess your template by including content from other files.
 
 ### Structure
 ```
