@@ -1,5 +1,5 @@
 {
-  "name": "grunt-include",
+  "name": "grunt-includejs",
   "version": "0.1.0",
   "description": "Grunt task for template injection",
   "homepage": "https://github.com/hung-phan/grunt-include",
