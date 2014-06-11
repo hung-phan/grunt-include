@@ -9,7 +9,6 @@
     "email": "colorvisavn@gmail.com",
     "url": ""
   },
-  "main": "main.js",
   "keywords": [
     "gruntplugin"
   ],
