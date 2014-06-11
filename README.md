@@ -27,9 +27,6 @@ application/
   |- src/
   |  |- number/
   |  |  |- _another-code.js
-  |  |- subfolder/
-  |  |  |- _app.js
-  |  |  |- sub.js
   |  |- _code.js
   |  |- test.js
   |- Gruntfile.js
