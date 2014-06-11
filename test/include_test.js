@@ -28,10 +28,14 @@ exports.include = {
     done();
   },
   js: function (test) {
-    test.expect(1);
+    test.expect(2);
 
     var actual = grunt.file.read('test/tmp/js/test.js');
     var expected = grunt.file.read('test/expected/expected.js');
+    test.equal(actual, expected, 'should describe what the default behavior is.');
+
+    actual = grunt.file.read('test/tmp/js/subfolder/sub.js');
+    expected = grunt.file.read('test/expected/expected-subfolder.js');
     test.equal(actual, expected, 'should describe what the default behavior is.');
 
     test.done();
