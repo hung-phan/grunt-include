@@ -51,9 +51,9 @@ grunt.initConfig({
       },
       files: [{
         expand: true,
-        cwd: 'test/fixtures/js',
+        cwd: 'src',
         src  : ['**/*.js'],
-        dest : 'test/tmp/js',
+        dest : 'build',
       }]
     },
   },
@@ -81,9 +81,11 @@ function(a) { return a + INCLUDE('number/another-code'); }
 ```
 
 #### Result
+```js
 function plus() {
   return function(a) { return a + 10; };
 }
+```
 
 module.exports = plus;
 
