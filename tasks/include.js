@@ -26,7 +26,11 @@ module.exports = function (grunt) {
       cache: false,
       showFiles: undefined
     });
-    var async = this.async;
+    var end = function(file) {
+        return function() {
+            return console.log(chalk.green(file) + ' is built.');
+        };
+    };
 
     // Iterate over all specified file groups.
 
@@ -36,7 +40,7 @@ module.exports = function (grunt) {
       file.src.filter(function (filepath) {
         // ignore file with _*
         if (filepath.split('/').pop().charAt(0) === '_') {
-          grunt.log.warn('Template file "' + chalk.bold.magenta(filepath) + '".');
+          grunt.log.warn('Template file "' + chalk.bold.green(filepath) + '".');
           return false;
         }
         // Warn on and remove invalid source files (if nonull was set).
@@ -47,7 +51,7 @@ module.exports = function (grunt) {
         return true;
       }).forEach(function (filepath) {
         var dest = file.dest.substring(0, file.dest.lastIndexOf('/'));
-        adapter(filepath, options, dest, async);
+        adapter(filepath, options, dest, end);
       });
     });
   });
