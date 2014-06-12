@@ -11,13 +11,13 @@
 var chalk = require('chalk');
 var adapter = require('./../lib/adapter');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
 
-  grunt.registerMultiTask('include', 'Grunt task for template injection', function () {
+  grunt.registerMultiTask('include', 'Grunt task for template injection', function() {
 
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
@@ -26,14 +26,13 @@ module.exports = function (grunt) {
       cache: false,
       showFiles: undefined
     });
+    var done = this.async();
 
-    var done = this.async;
     // Iterate over all specified file groups.
-
-    this.files.forEach(function (file) {
+    this.files.forEach(function(file) {
       // Concat specified files.
 
-      file.src.filter(function (filepath) {
+      file.src.filter(function(filepath) {
         // ignore file with _*
         if (filepath.split('/').pop().charAt(0) === '_') {
           return false;
@@ -44,17 +43,9 @@ module.exports = function (grunt) {
           return false;
         }
         return true;
-      }).forEach(function (filepath, index, array) {
+      }).forEach(function(filepath, index, array) {
         var dest = file.dest.substring(0, file.dest.lastIndexOf('/'));
-        if (index === array.length - 1) {
-          adapter(filepath, options, dest, done);
-        } else {
-          adapter(filepath, options, dest, function() {
-            return function() {
-              // do sth
-            };
-          });
-        }
+        adapter(filepath, options, dest, done, index, array.length);
       });
     });
   });
