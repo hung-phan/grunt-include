@@ -27,6 +27,7 @@ module.exports = function (grunt) {
       showFiles: undefined
     });
 
+    var done = this.async;
     // Iterate over all specified file groups.
 
     this.files.forEach(function (file) {
@@ -35,7 +36,6 @@ module.exports = function (grunt) {
       file.src.filter(function (filepath) {
         // ignore file with _*
         if (filepath.split('/').pop().charAt(0) === '_') {
-          grunt.log.warn('Template file "' + chalk.bold.green(filepath) + '".');
           return false;
         }
         // Warn on and remove invalid source files (if nonull was set).
@@ -44,9 +44,17 @@ module.exports = function (grunt) {
           return false;
         }
         return true;
-      }).forEach(function (filepath) {
+      }).forEach(function (filepath, index, array) {
         var dest = file.dest.substring(0, file.dest.lastIndexOf('/'));
-        adapter(filepath, options, dest);
+        if (index === array.length - 1) {
+          adapter(filepath, options, dest, done);
+        } else {
+          adapter(filepath, options, dest, function() {
+            return function() {
+              // do sth
+            };
+          });
+        }
       });
     });
   });
